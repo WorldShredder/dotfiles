@@ -8,7 +8,7 @@ A personal collection of system configuration files. Tested in latest versions o
 
 The entire collection can be installed using the [ws-env](https://github.com/worldshredder/ws-env) workstation installer which utilizes [Planit](https://github.com/worldshredder/planit) and will handle all dependencies for you.
 
-Alternatively, you can install each components manually. The [extras/](https://github.com/worldshredder/dotfiles/tree/main/extras) contains drop-in components or application plugins to extend a given configuration. See [Extras README.md](https://github.com/worldshredder/dotfiles/blob/main/extras/README.md).
+Alternatively, you can install each components manually. The [extras/](/extras) contains drop-in components or application plugins to extend a given configuration. See [Extras README.md](/extras/README.md).
 
 ### Quickstart
 
@@ -22,7 +22,7 @@ For all options, see [WS-Env documentation](https://github.com/worldshredder/ws-
 
     ```sh
     cd ws-env/src
-    `
+    ```
 
 2. #### Run Installer
 
@@ -49,4 +49,4 @@ For all options, see [WS-Env documentation](https://github.com/worldshredder/ws-
 
 ## Documenation
 
-Some library components will have a `README.md` detailing what they offer. You can find a full list of these docs [here](https://github.com/worldshredder/dotfiles/blob/main/lib/README.md).
+Some library components will have a `README.md` detailing what they offer. You can find a full list of these docs [here](/lib/README.md).

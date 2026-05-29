@@ -1,6 +1,6 @@
 # Managing LSP Servers
 
-This document describes how the configuration of new LSP servers and tools using classes provided by [lsp/class.lua](class.lua).
+This document describes how to configure new LSP servers and tools using classes provided by [lsp/class.lua](class.lua).
 
 > [!NOTE]
 > - Any server can be disabled by adding its name to the `exclude` table in [lsp/init.lua](init.lua).

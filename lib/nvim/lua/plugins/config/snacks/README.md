@@ -1,6 +1,6 @@
 # Managing Snack Modules
 
-This document describes how to configure new [snack](https://github.com/folke/snacks.nvim) modules for [plugins/snacks.lua](/lua/plugins/snacks.lua).
+This document describes how to configure new [snack](https://github.com/folke/snacks.nvim) modules for [plugins/snacks.lua](/lib/nvim/lua/plugins/snacks.lua).
 
 ## Snacks Module Fields
 
@@ -44,7 +44,7 @@ The following fields define a module:
 
 ## Getting Started
 
-The first thing we need to do is create a `.lua` file in [plugins/config/snacks](./), giving it the same name as the Snack module you're configuring. For example, if configuring the `Snacks.input` module, the file would be `plugins/config/snacks/input.lua`.
+The first thing we need to do is create a `.lua` file in [plugins/config/snacks](/lib/nvim/lua/plugins/config/snacks), giving it the same name as the Snack module you're configuring. For example, if configuring the `Snacks.input` module, the file would be `plugins/config/snacks/input.lua`.
 
 #### Define Module
 

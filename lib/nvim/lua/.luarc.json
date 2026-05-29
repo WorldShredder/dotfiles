@@ -1,0 +1,7 @@
+{
+    "diagnostics.enable": true,
+    "diagnostics.globals": [
+        "vim",
+        "Snacks"
+    ]
+}

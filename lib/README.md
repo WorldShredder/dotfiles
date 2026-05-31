@@ -17,3 +17,10 @@
     
     - [Documentation](/lib/tmux/README.md)
     - [Key Bindings](/lib/tmux/docs/bindings.md)
+
+3. ### ps1
+
+    A clean, informative, slightly resource intensive prompt for your shells(s). Currently supports _Bash_ and _Zsh_ with an 8-bit color compatible terminal.
+
+    - [Documentation](/lib/ps1/README.md)
+    - [Quick Install](/lib/ps1/README.md#installation)

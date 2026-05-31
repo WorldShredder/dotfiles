@@ -4,6 +4,18 @@
 
 A clean, informative, slightly resource intensive, prompt for your shell(s).
 
+<details>
+<summary>Show Examples</summary>
+
+#### Bash
+
+<div><img src='/../assets/ps1-bash-example.jpg' /></div>
+
+#### Zsh
+
+<div><img src='/../assets/ps1-zsh-example.jpg' /></div>
+</details>
+
 #### Features
 
 - Detects shell and displays shell-specific prompt line

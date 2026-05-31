@@ -34,6 +34,9 @@ sudo ps1/src/install
 
 ### Manual Install
 
+> [!IMPORTANT]
+> Ensure `/usr/local/bin` is present in the `PATH` of each user `get-ps1` is configured for, including _root_.
+
 1. #### Create Directories
 
     ```sh
@@ -54,22 +57,19 @@ sudo ps1/src/install
 
 4. #### Update Shell Runtime Configs
 
-> [!IMPORTANT]
-> Ensure `/usr/local/bin` is present in the `PATH` of each user `get-ps1` is configured for, including _root_.
+    - #### Bash
 
-- #### Bash
+        ```sh
+        echo 'source <(get-ps1 bash)' |\
+            tee -a ~/.bashrc | sudo tee -a /root/.bashrc >/dev/null
+        ```
 
-    ```sh
-    echo 'source <(get-ps1 bash)' |\
-        tee -a ~/.bashrc | sudo tee -a /root/.bashrc >/dev/null
-    ```
+    - #### Zsh
 
-- #### Zsh
-
-    ```sh
-    echo 'source <(get-ps1 zsh)' |\
-        tee -a ~/.zshrc | sudo tee -a /root/.zshrc >/dev/null
-    ```
+        ```sh
+        echo 'source <(get-ps1 zsh)' |\
+            tee -a ~/.zshrc | sudo tee -a /root/.zshrc >/dev/null
+        ```
 
 ## Configuration
 

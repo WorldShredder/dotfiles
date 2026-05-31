@@ -2,13 +2,16 @@
 
 pwd="$(cd "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")" && pwd)"
 
-if [ "$1" == 'zsh' ]; then
+if [ "$1" = 'zsh' ]; then
     ps1_error="\\\$(${pwd}/generate-cmd-status \\\$? |\
         sed $'s/\001/%{/g;s/\002/%}/g')"
     ps1_prompt="\\\$(${pwd}/generate-prompt $@ |\
         sed $'s/\001/%{/g;s/\002/%}/g')"
     ps1_dir="\\\$((${pwd}/generate-git || ${pwd}/generate-dir) |\
         sed $'s/\001/%{/g;s/\002/%}/g')"
+
+    # this zsh option is required
+    printf '[ "${options[PROMPT_SUBST]}" = off ] && setopt promptsubst\n'
 else
     ps1_error="\\\$(${pwd}/generate-cmd-status \\\$?)"
     ps1_prompt="\\\$(${pwd}/generate-prompt $@)"

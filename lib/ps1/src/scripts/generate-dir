@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+pwd="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+generate_dir() {
+    local path="$PWD"
+    [ -z "${path%%"$HOME"*}" ] && path="~${path#*"$HOME"}"
+    path="$("${pwd}/abbr-path" "$path")"
+    printf '%b%s%b' "$_PS1__COLOR_DIR" "$path" "$_PS1__COLOR_NONE"
+}
+
+generate_dir

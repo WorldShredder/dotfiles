@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+generate_prompt() {
+    local shell="${1:-bash}"
+    local icon="${2:-"$_PS1__ICON_SHELL_ANY"}"
+    local color="$_PS1__COLOR_USER_SUDO"
+    [ "$shell" == 'bash' ] && icon="$_PS1__ICON_SHELL_BASH"
+    if [ "$(id -u)" -eq 0 ]; then
+        color="$_PS1__COLOR_USER_ROOT"
+    elif ! sudo true &>/dev/null; then
+        # non-sudo user
+        color="$_PS1__COLOR_USER_USER"
+    fi
+    printf '%b%s%b' "$color" "$icon" "$_PS1__COLOR_NONE"
+}
+
+generate_prompt "$@"

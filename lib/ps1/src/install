@@ -1,0 +1,74 @@
+#!/usr/bin/env bash
+
+if [ "$(id -u)" != '0' ]; then
+    printf '\033[31m[%-5s] %s\033[0m\n' \
+        'ERROR' 'Installer requires root privileges' >&2
+    exit 1
+fi
+
+pwd="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+install_dir='/usr/local/libexec/ps1'
+printf '\033[34m[%-5s] %s\033[0m\n' 'INFO' "Installing to '$install_dir'"
+
+mkdir -p "$install_dir" || {
+    printf '\033[31m[%-5s] %s\033[0m\n' \
+        'ERROR' "Failed to create directory '$install_dir'" >&2
+    exit 1
+}
+
+chmod 755 "$install_dir" || {
+    printf '\033[31m[%-5s] %s\033[0m\n' \
+        'ERROR' "Failed to set permissions for '$install_dir'" >&2
+    exit 1
+}
+
+for f in "$pwd"/scripts/*; do
+    cp -r "$f" "$install_dir" || {
+        printf '\033[31m[%-5s] %s\033[0m\n' \
+            'ERROR' "Failed to copy '${f##*/}' to '$install_dir'" >&2
+        exit 1
+    }
+    chmod 755 "${install_dir}/${f##*/}" || {
+        printf '\033[31m[%-5s] %s\033[0m\n' \
+            'ERROR' "Failed to set executable permissions for '${install_dir}/${f##*/}'" >&2
+        exit 1
+    }
+done
+
+printf '\033[34m[%-5s] %s\033[0m\n' \
+    'INFO' "Linking 'get-ps1' to '/usr/local/bin/get-ps1'"
+ln -s "${install_dir}/get-ps1" '/usr/local/bin/get-ps1'
+
+target_user="$SUDO_USER"
+[ -z "$target_user" ] \
+    && target_user="$USER"
+
+is_root='false'
+[ "$target_user" = 'root' ] \
+    && is_root='true'
+
+home="$(sudo -u "$target_user" bash -c 'echo $HOME')"
+if command -v zsh &> /dev/null; then
+    printf '\033[34m[%-5s] %s\033[0m\n' \
+        'INFO' 'Zshell found, installing to .zshrc'
+    echo 'source <(get-ps1 zsh)' | sudo -u "$target_user" tee -a "$home"/.zshrc 1> /dev/null || {
+        printf '\033[31m[%-5s] %s\033[0m\n' \
+            'ERROR' "Failed to set PS1 in '${home}/.zshrc'" >&2
+        exit 1
+    }
+    [ "$is_root" = 'false' ] \
+        && echo 'source <(get-ps1 zsh)' >> ~/.zshrc
+fi
+
+printf '\033[34m[%-5s] %s\033[0m\n' 'INFO' 'Installing to .bashrc'
+echo 'source <(get-ps1 bash)' | sudo -u "$target_user" tee -a "$home"/.bashrc 1> /dev/null || {
+    printf '\033[31m[%-5s] %s\033[0m\n' \
+        'ERROR' "Failed to set PS1 in '${home}/.bashrc'" >&2
+    exit 1
+}
+[ "$is_root" = 'false' ] \
+    && echo 'source <(get-ps1 bash)' >> ~/.bashrc
+
+printf '\033[32m[%-5s] %s\033[0m\n' 'OK' 'All done :)'
+
+exit 0

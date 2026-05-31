@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+abbr_path() {
+    local path="$1"
+    local i s arr out
+    [ "${path::1}" == '/' ] && path="${path:1}"
+    [ "${path:${#path}-1}" == '/' ] && path="${path::-1}"
+    IFS=/ read -ra arr <<< "$path"
+    for ((i = 0; i < "${#arr[@]}"; i++)); do
+        s="${arr[$i]}"
+	((i < "${#arr[@]}" - 1)) && arr["$i"]="${s::1}"
+    done
+    local IFS=/
+    printf '%s' "${arr[*]}"
+}
+
+abbr_path "$@"

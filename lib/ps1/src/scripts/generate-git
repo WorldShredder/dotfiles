@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+pwd="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+generate_git() {
+    local top repo branch dir path
+    if branch="$(git branch --show-current 2>/dev/null)"; then
+        top="$(git rev-parse --show-toplevel 2>/dev/null)"
+        git_base_path="${PWD#*"$top"}"
+        repo="$(basename "${top}")"
+        path+="${_PS1__COLOR_GIT_REPO}${repo}"
+        if [ -n "$git_base_path" ]; then
+            local dir="$("${pwd}/abbr-path" "${PWD#*"$top"/}")"
+            path+="${_PS1__COLOR_GIT_DELIM}:${_PS1__COLOR_GIT_PATH}${dir}"
+        fi
+        printf '%b%s%b(%b%b)%b' \
+            "$_PS1__COLOR_GIT_BRANCH" "$branch" \
+            "$_PS1__COLOR_GIT_DELIM" "$path" \
+	    "$_PS1__COLOR_GIT_DELIM" "$_PS1__COLOR_NONE"
+        return 0
+    fi
+    return 1
+}
+
+generate_git

@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+pwd="$(cd "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")" && pwd)"
+
+if [ "$1" == 'zsh' ]; then
+    ps1_error="\\\$(${pwd}/generate-cmd-status \\\$? |\
+        sed $'s/\001/%{/g;s/\002/%}/g')"
+    ps1_prompt="\\\$(${pwd}/generate-prompt $@ |\
+        sed $'s/\001/%{/g;s/\002/%}/g')"
+    ps1_dir="\\\$((${pwd}/generate-git || ${pwd}/generate-dir) |\
+        sed $'s/\001/%{/g;s/\002/%}/g')"
+else
+    ps1_error="\\\$(${pwd}/generate-cmd-status \\\$?)"
+    ps1_prompt="\\\$(${pwd}/generate-prompt $@)"
+    ps1_dir="\\\$(${pwd}/generate-git \
+	        || ${pwd}/generate-dir)"
+fi
+
+{
+    printf 'source "%s"\n' "${pwd}/lib/colors.sh"
+    printf 'PS1="%s %s %s"\n' "${ps1_error}" "${ps1_dir}" "${ps1_prompt}"
+    printf 'export PS1\n'
+}

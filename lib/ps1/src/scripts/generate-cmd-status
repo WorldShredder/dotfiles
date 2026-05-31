@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+generate_cmd_status() {
+    local exit_code="${1:-0}"
+    local icon="${2:-▍}"
+    local color="$_PS1__COLOR_OK"
+    [ "$exit_code" -ne 0 ] && color="$_PS1__COLOR_FAIL"
+    printf '%b%s%b' "$color" "$icon" "$_PS1__COLOR_NONE"
+}
+
+generate_cmd_status "$@"

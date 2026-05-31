@@ -18,6 +18,6 @@ fi
 
 {
     printf 'source "%s"\n' "${pwd}/lib/colors.sh"
-    printf 'PS1="%s %s %s"\n' "${ps1_error}" "${ps1_dir}" "${ps1_prompt}"
+    printf 'PS1="%s %s %s "\n' "${ps1_error}" "${ps1_dir}" "${ps1_prompt}"
     printf 'export PS1\n'
 }

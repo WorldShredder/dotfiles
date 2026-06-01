@@ -52,6 +52,8 @@ home="$(sudo -u "$target_user" bash -c 'echo $HOME')"
 
 info "Cleaning shell runtime configs"
 for sh in bash zsh; do
+    ! command -v "$sh" &> /dev/null \
+        && continue
     sed -i '/<(get-ps1.*)$/d' "${home}/.${sh}rc" || true
     [ "$is_root" = 'false' ] \
         && sed -i '/<(get-ps1.*)$/d' ~/."${sh}rc" || true

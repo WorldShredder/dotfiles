@@ -24,6 +24,9 @@
 return {
     'nvim-treesitter/nvim-treesitter',
     commit = '4916d65',
+    dependencies = {
+        'mason-org/mason.nvim',
+    },
     lazy = false,
     build = ':TSUpdate',
     config = function()
@@ -64,8 +67,7 @@ return {
                 vim.wo.foldmethod = 'expr'
                 vim.cmd.normal('zR') -- open all folds by default
                 -- TS Smart Indentation
-                vim.bo.indentexpr =
-                    "v:lua.require'nvim-treesitter'.indentexpr()"
+                vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
             end,
         })
     end,

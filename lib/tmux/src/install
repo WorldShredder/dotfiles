@@ -20,14 +20,13 @@ if [ -e "${HOME}/.tmux.conf" ]; then
         exit 1
     }
 else
-    install_dir="${XDG_CONFIG_HOME:-"${HOME}/.config"}"
-    [ -e "${install_dir}/tmux" ] \
-        && info "Backing up '${install_dir}/tmux'" \
-        || info "Installing to '${install_dir}/tmux'"
-    cp -r --backup=t "${pwd}/tmux" "$install_dir" || {
-        error "Failed to copy 'tmux/' to '$install_dir'"
-        exit 1
-    }
+    install_dir="${XDG_CONFIG_HOME:-"${HOME}/.config"}/tmux"
+    if [ -e "${install_dir}" ]; then
+        info "Backing up '$install_dir'"
+        mv -T --backup=t "$install_dir" "${install_dir}~"
+    fi
+    info "Installing to '$install_dir'"
+    cp -r "${pwd}/tmux" "$install_dir"
 fi
 
 info 'Install complete'

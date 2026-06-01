@@ -12,13 +12,13 @@ set -eo pipefail
 
 pwd="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-[ -e "${HOME}/.config/nvim" ] \
-    && info 'Backing up ~/.config/nvim' \
-    || info 'Installing to ~/.config/nvim'
+install_dir="${XDG_CONFIG_HOME:-"${HOME}/.config"}/nvim"
+if [ -e "$install_dir" ]; then
+    info "Backing up '$install_dir'"
+    mv -T --backup=t "$install_dir" "${install_dir}~"
+fi
 
-cp -r --backup=numbered "${pwd}/nvim" "${HOME}/.config" || {
-    error "Failed to copy 'nvim/' to '${HOME}/.config/'"
-    exit 1
-}
+info "Installing to '$install_dir'"
+cp -r "${pwd}/nvim" "$install_dir"
 
 info 'Install complete'

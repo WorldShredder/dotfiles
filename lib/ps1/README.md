@@ -41,7 +41,7 @@ A clean, informative, slightly resource intensive, prompt for your shell(s).
 ### Via Install Script
 
 ```sh
-sudo ps1/src/install
+sudo src/install
 ```
 
 ### Manual Install
@@ -58,7 +58,7 @@ sudo ps1/src/install
 2. #### Copy PS1 Scripts to `libexec`
 
     ```sh
-    sudo cp -r ps1/src/scripts/* /usr/local/libexec/ps1
+    sudo cp -r src/scripts/* /usr/local/libexec/ps1
     ```
 
 3. #### Create Symbolic Link for `get-ps1`

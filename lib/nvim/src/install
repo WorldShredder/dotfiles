@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+info() { printf '\033[34m[%-5s] %s\033[0m\n' 'INFO' "$*" >&2; }
+error() { printf '\033[31m[%-5s] %s\033[0m\n' 'ERROR' "$*" >&2; }
+
+if [ "$(id -u)" = 0 ]; then
+    error 'Do not run script as root'
+    exit 1
+fi
+
+set -eo pipefail
+
+pwd="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+[ -e "${HOME}/.config/nvim" ] \
+    && info 'Backing up ~/.config/nvim' \
+    || info 'Installing to ~/.config/nvim'
+
+cp -r --backup=numbered "${pwd}/nvim" "${HOME}/.config" || {
+    error "Failed to copy 'nvim/' to '${HOME}/.config/'"
+    exit 1
+}
+
+info 'Install complete'

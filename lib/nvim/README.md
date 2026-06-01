@@ -4,7 +4,7 @@
 
 This Neovim config features 9 core plugins, 2 QoL plugins, and _Base16_ for themes.
 
-See [here](/lib/nvim/docs/bindings.md) for custom bindings.
+See [here](src/nvim/docs/bindings.md) for custom bindings.
 
 ## Plugins
 
@@ -44,8 +44,16 @@ Starting a macro with `q<KEY>` will call `Snacks.notify` to display a notificati
 
 ### LSP Server Configuration
 
-LSP servers and tools (EFM) are included into the main config programatically using simple utility classes. Configs are stored in designated directories which are subsequently parsed by the `lsp/init.lua` meta config. See [lsp/README.md](/lib/nvim/lua/lsp/README.md) for usage.
+LSP servers and tools (EFM) are included into the main config programatically using simple utility classes. Configs are stored in designated directories which are subsequently parsed by the `lsp/init.lua` meta config. See [lsp/README.md](src/nvim/lua/lsp/README.md) for usage.
 
 ### Snacks Configuration
 
-Snacks sub-modudles are included into the main Snacks config programatically. Sub-module configs are defined in `plugins/config/snacks`. See [plugins/config/snacks/README.md](/lib/nvim/lua/plugins/config/snacks/README.md) for usage.
+Snacks sub-modudles are included into the main Snacks config programatically. Sub-module configs are defined in `plugins/config/snacks`. See [plugins/config/snacks/README.md](src/nvim/lua/plugins/config/snacks/README.md) for usage.
+
+## Installation
+
+You can install manually or run the following command to install to `${HOME}/.config/nvim`
+
+```sh
+src/install
+```

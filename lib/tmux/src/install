@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+
+info() { printf '\033[34m[%-5s] %s\033[0m\n' 'INFO' "$*" >&2; }
+error() { printf '\033[31m[%-5s] %s\033[0m\n' 'ERROR' "$*" >&2; }
+
+# We can allow root install
+# if [ "$(id -u)" = 0 ]; then
+#     error 'Do not run script as root'
+#     exit 1
+# fi
+
+set -eo pipefail
+
+pwd="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+if [ -e "${HOME}/.tmux.conf" ]; then
+    info "Backing up ~/.tmux.conf"
+    cp --backup=t "${pwd}/tmux/tmux.conf" "${HOME}/.tmux.conf" || {
+        error "Failed to copy 'tmux/tmux.conf' to '${HOME}/.tmux.conf'"
+        exit 1
+    }
+else
+    install_dir="${XDG_CONFIG_HOME:-"${HOME}/.config"}"
+    [ -e "${install_dir}/tmux" ] \
+        && info "Backing up '${install_dir}/tmux'" \
+        || info "Installing to '${install_dir}/tmux'"
+    cp -r --backup=t "${pwd}/tmux" "$install_dir" || {
+        error "Failed to copy 'tmux/' to '$install_dir'"
+        exit 1
+    }
+fi
+
+info 'Install complete'

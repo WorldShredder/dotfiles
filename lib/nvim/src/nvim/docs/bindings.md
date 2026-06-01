@@ -2,7 +2,7 @@
 <h3 align=center>Bindings</h3>
 <br>
 
-The following table shows custom bindings defined in `lua/config/remap.lua` and plugin configs.
+The following table shows custom bindings defined in [remap.lua](../lua/config/remap.lua) and plugin configs.
 
 | Key         | Modes | Description                    | Plugin           | Context
 | ---         | ----- | -----------                    | ------           | -------

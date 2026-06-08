@@ -1,10 +1,16 @@
 local M = {}
 
 -- should move this to its own module
-M._log = function(msg, level, prefix)
+M._log = function(msg, level, prefix, title)
     prefix = prefix .. ': ' or ''
     level = level or 'INFO'
-    vim.notify(('%q%s'):format(prefix, msg), vim.log.levels[level])
+    title = title or 'utils.fs'
+    -- stylua: ignore
+    vim.notify(
+        ('%q%s'):format(prefix, msg),
+        vim.log.levels[level],
+        { title = title }
+    )
 end
 
 ---@param binary string Name of binary to search for

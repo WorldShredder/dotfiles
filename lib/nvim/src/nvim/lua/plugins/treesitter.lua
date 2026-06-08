@@ -24,9 +24,6 @@
 return {
     'nvim-treesitter/nvim-treesitter',
     commit = '4916d65',
-    dependencies = {
-        'mason-org/mason.nvim',
-    },
     lazy = false,
     build = ':TSUpdate',
     config = function()

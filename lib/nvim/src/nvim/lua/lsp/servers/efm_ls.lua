@@ -8,15 +8,16 @@ local M = require('lsp.class').LspServer:new('efm')
 
 M.post_config = {
     -- Format code of current file on save
-    format_on_save = function()
+    format_on_save = function(args)
         vim.api.nvim_create_autocmd('BufWritePre', {
             group = vim.api.nvim_create_augroup('FormatOnSaveGroup', {}),
             callback = function()
-                local efm = vim.lsp.get_clients({ name = 'efm' })
-                if vim.tbl_isempty(efm) then
+                local clients = vim.lsp.get_clients({ name = 'efm', bufnr = args.buf })
+                if vim.tbl_isempty(clients) then
                     return
                 end
-                vim.lsp.buf.format({ name = 'efm', async = true })
+                -- set async to true if you don't mind saving twice
+                vim.lsp.buf.format({ name = 'efm', async = false })
             end,
         })
     end,

@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 info() { printf '\033[34m[%-5s] %s\033[0m\n' 'INFO' "$*" >&2; }
+warn() { printf '\033[33m[%-5s] %s\033[0m\n' 'WARN' "$*" >&2; }
 error() { printf '\033[31m[%-5s] %s\033[0m\n' 'ERROR' "$*" >&2; }
 
 if [ "$(id -u)" = 0 ]; then
@@ -11,6 +12,49 @@ fi
 set -eo pipefail
 
 pwd="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+#
+# Depend Check
+#
+
+declare -a required=('nvim' 'cargo' 'npm' 'rg' 'lua' 'luarocks')
+declare -a missing=()
+
+for cmd in "${required[@]}"; do
+    ! command -v "$cmd" &> /dev/null \
+        && missing+=("$cmd")
+done
+
+[ "${#missing[@]}" -gt 0 ] \
+    && warn "You must install the following dependencies before starting Neovim: ${missing[*]}"
+
+#
+# Treesitter Cli
+#
+
+tree_sitter_cli_installed='true'
+if ! command -v tree-sitter &> /dev/null; then
+    if command -v npm; then
+        info 'Installing NPM package: tree-sitter-cli'
+        npm install -g --prefix "${HOME}/.local" tree-sitter-cli
+        [[ "$PATH" != *"${HOME}/.local/bin"* ]] \
+            && warn "Update PATH with: '${HOME}/.local/bin'"
+    elif command -v cargo &> /dev/null; then
+        info 'Installing crate: tree-sitter-cli'
+        cargo install tree-sitter-cli
+    else
+        tree_sitter_cli_installed='false'
+    fi
+fi
+
+[ "$tree_sitter_cli_installed" = 'false' ] \
+    && warn "tree-sitter-cli not installed --" \
+        "relying on Mason is safe but may cause" \
+        "error messages in Neovim during first init"
+
+#
+# Install Config
+#
 
 install_dir="${XDG_CONFIG_HOME:-"${HOME}/.config"}/nvim"
 if [ -e "$install_dir" ]; then

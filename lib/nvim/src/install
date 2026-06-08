@@ -34,14 +34,18 @@ done
 
 tree_sitter_cli_installed='true'
 if ! command -v tree-sitter &> /dev/null; then
-    if command -v npm; then
-        info 'Installing NPM package: tree-sitter-cli'
-        npm install -g --prefix "${HOME}/.local" tree-sitter-cli
+    pkg="tree-sitter-cli"
+    if command -v cargo-binstall &> /dev/null; then
+        info "Installing crate binary: $pkg"
+        cargo binstall -y "$pkg"
+    elif command -v npm &> /dev/null; then
+        info "Installing NPM package: $pkg"
+        npm install -g --prefix "${HOME}/.local" "$pkg"
         [[ "$PATH" != *"${HOME}/.local/bin"* ]] \
             && warn "Update PATH with: '${HOME}/.local/bin'"
     elif command -v cargo &> /dev/null; then
-        info 'Installing crate: tree-sitter-cli'
-        cargo install tree-sitter-cli
+        info "Building/installing crate: $pkg"
+        cargo install "$pkg"
     else
         tree_sitter_cli_installed='false'
     fi

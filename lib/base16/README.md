@@ -2,7 +2,7 @@
 <h3 align=center>Colorize your shell using shell aliases</h3>
 <br>
 
-Configures Worldshredder's fork of [Base16-Shell](https://github.com/worldshredder/base16-shell) for your shells, which includes additional themes and compatibility fixes for use with Neovim. For the original project, see: https://github.com/chriskempson/base16-shell
+Configure your shell's color scheme using [WorldShredder's fork](https://github.com/worldshredder/base16-shell) of [base16-shell](https://github.com/chriskempson/base16-shell), which includes additional themes and compatibility fixes for use with Neovim.
 
 ## Installation
 

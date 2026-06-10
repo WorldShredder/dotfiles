@@ -24,3 +24,9 @@
 
     - [Documentation](/lib/ps1/README.md)
     - [Quick Install](/lib/ps1/README.md#installation)
+
+4. ### base16
+
+    Configure your shell's color scheme using [WorldShredder's fork](https://github.com/worldshredder/base16-shell) of [base16-shell](https://github.com/chriskempson/base16-shell), which includes additional themes and compatibility fixes for use with Neovim.
+
+    - [Documentation](/lib/base16/README.md)

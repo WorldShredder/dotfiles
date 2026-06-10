@@ -7,13 +7,13 @@ Configure your shell's color scheme using [WorldShredder's fork](https://github.
 ## Installation
 
 ```sh
-lib/base16/src/install
+src/install
 ```
 
 If you want a specific default theme configured, use `-t THEME` or `--theme THEME`:
 
 ```sh
-lib/base16/src/install --theme material-palenight
+src/install --theme material-palenight
 ```
 
 ## Post-Install Configuration

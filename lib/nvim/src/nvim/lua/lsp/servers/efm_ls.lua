@@ -8,10 +8,10 @@ local M = require('lsp.class').LspServer:new('efm')
 
 M.post_config = {
     -- Format code of current file on save
-    format_on_save = function(args)
+    format_on_save = function()
         vim.api.nvim_create_autocmd('BufWritePre', {
             group = vim.api.nvim_create_augroup('FormatOnSaveGroup', {}),
-            callback = function()
+            callback = function(args)
                 local clients = vim.lsp.get_clients({ name = 'efm', bufnr = args.buf })
                 if vim.tbl_isempty(clients) then
                     return

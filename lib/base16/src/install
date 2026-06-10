@@ -1,0 +1,102 @@
+#!/usr/bin/env bash
+
+info() { printf '\033[34m[%-5s] %s\033[0m\n' 'INFO' "$*" >&2; }
+warn() { printf '\033[33m[%-5s] %s\033[0m\n' 'WARN' "$*" >&2; }
+error() { printf '\033[31m[%-5s] %s\033[0m\n' 'ERROR' "$*" >&2; }
+
+[ "$(id -u)" = 0 ] \
+    && warn 'Installing as root user'
+
+set -eo pipefail
+
+pwd="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+#
+# Parse Options
+#
+
+default_theme='rose-pine'
+base16_theme=''
+
+while [ "$#" -gt 0 ]; do
+    case "$1" in
+        -t | --theme)
+            base16_theme="$2"
+            shift
+            ;;
+        --)
+            shift
+            break
+            ;;
+        *)
+            error "Invalid option '$1'"
+            exit 1
+            ;;
+    esac
+    shift
+done
+
+#
+# Download Repository
+#
+
+if ! mkdir -p "${HOME}/.config"; then
+    error "Failed to make directory '${HOME}/.config'"
+    exit 1
+fi
+
+info 'Cloning repo WorldShredder/base16-shell'
+base16_shell_path="${HOME}/.config/base16-shell"
+rm -rf "$base16_shell_path"
+git clone https://github.com/worldshredder/base16-shell \
+    "${HOME}/.config/base16-shell"
+
+if [ -n "$base16_theme" ]; then
+    if ! [ -f "${base16_shell_path}/scripts/base16-${base16_theme}.sh" ]; then
+        warn "Theme '$base16_theme' does not exist"
+        unset base16_theme
+    fi
+fi
+
+if [ -z "$base16_theme" ]; then
+    info "Using default theme '$default_theme'"
+    base16_theme="$default_theme"
+fi
+
+#
+# Install Base16-Shell
+#
+
+rm -f "${HOME}/.base16_theme"
+
+rc_configured='false'
+if [ -d "${HOME}/.shellrc.d" ]; then
+    info 'Configuring shell runtime configs via ~/.shellrc.d'
+    source_name='zzz_dotfiles_base16.sh'
+    rc_path="${HOME}/.shellrc.d/${source_name}"
+    cp "${pwd}/scripts/${source_name}" "$rc_path"
+    sed -i "s/{{BASE16_DEFAULT_THEME}}/${base16_theme}/" "$rc_path"
+    rc_configured='true'
+else
+    for sh in bash zsh; do
+        ! [ -f "${HOME}/.${sh}rc" ] \
+            && continue
+        info "Configuring runtime config ~/.${sh}rc"
+        rc_path="${HOME}/.${sh}rc"
+        sed -i '/# start-base16-shell/,/# end-base16-shell/d' "$rc_path" || {
+            error "Failed to clean config '$rc_path'"
+            exit 1
+        }
+        cat "${pwd}/scripts/zzz_dotfiles_base16.sh" \
+            | tee -a "$rc_path" 1> /dev/null
+        sed -i "s/{{BASE16_DEFAULT_THEME}}/${base16_theme}/" "$rc_path"
+        rc_configured='true'
+    done
+fi
+
+if [ "$rc_configured" = 'false' ]; then
+    warn 'Could not configure shell runtime config'
+    warn 'See https://github.com/WorldShredder/base16-shell'
+fi
+
+info 'Change theme with alias: base16_<THEME_NAME>'

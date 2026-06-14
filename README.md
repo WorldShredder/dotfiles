@@ -26,26 +26,44 @@ For all options, see [WS-Env documentation](https://github.com/worldshredder/ws-
 
 2. #### Run Installer
 
-    #### Full Install w/Nerdfont
+    #### Full Install w/Dependencies & Nerdfont Symbols
 
     ```sh
-    ./install --shell bash,zsh --nf-fonts robotomono,jetbrainsmono
+    ./install --shell bash,zsh --lib dotfiles --purge --extras --binstall
     ```
 
-    #### Dotfiles Only w/Dependencies & Fonts
+    #### Full Install w/Specific Nerdfont
+
+    Change `--nerdfonts-font jetbrainsmono,robotomono` to your desired font(s). See `--help` for Nerdfont options.
 
     ```sh
-    ./install \
-        --shell bash,zsh \
-        --lib dotfiles,nerdfonts \
-        --nf-fonts robotomono,jetbrainsmono
+    ./install --shell bash,zsh --lib dotfiles --purge --extras --binstall --nerdfonts-font jetbrainsmono,robotomono
     ```
 
-    #### List Available Fonts
+    #### Dotfiles Only (No dependencies or fonts)
 
     ```sh
-    ./install --lib nerdfonts --nf-list
+    ./install --lib dotfiles -R dotfiles
     ```
+
+    #### Install a specific dotfiles library
+
+    ```sh
+    ./install --lib dotfiles -R dotfiles --dotfiles-lib ps1,nvim,base16
+    ```
+
+### Manual Install
+
+> [!WARNING]
+> It is recommended that you install dotfile libraries using [WS-Env](https://github.com/worldshredder/ws-env) to ensure necessary dependencies are installed.
+
+Each library has an `install` script in its `src/` directory. Simply run that script to install your desired library.
+
+For example, to install the _ps1_ library (Nerdfont required), run:
+
+```sh
+lib/ps1/src/install
+```
 
 ## Documenation
 

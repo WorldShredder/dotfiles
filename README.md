@@ -26,13 +26,13 @@ For all options, see [WS-Env documentation](https://github.com/worldshredder/ws-
 
 2. #### Run Installer
 
-    #### Full Install w/Dependencies & Nerdfont Symbols
+    #### Full install w/dependencies & Nerdfont symbols
 
     ```sh
     ./install --shell bash,zsh --lib dotfiles --purge --extras --binstall
     ```
 
-    #### Full Install w/Specific Nerdfont
+    #### Full install w/specific Nerdfont
 
     Change `--nerdfonts-font jetbrainsmono,robotomono` to your desired font(s). See `--help` for Nerdfont options.
 
@@ -40,7 +40,7 @@ For all options, see [WS-Env documentation](https://github.com/worldshredder/ws-
     ./install --shell bash,zsh --lib dotfiles --purge --extras --binstall --nerdfonts-font jetbrainsmono,robotomono
     ```
 
-    #### Dotfiles Only (No dependencies or fonts)
+    #### Dotfiles only (no dependencies or fonts)
 
     ```sh
     ./install --lib dotfiles -R dotfiles

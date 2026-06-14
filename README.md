@@ -43,13 +43,13 @@ For all options, see [WS-Env documentation](https://github.com/worldshredder/ws-
     #### Dotfiles only (no dependencies or fonts)
 
     ```sh
-    ./install --lib dotfiles -R dotfiles
+    ./install --lib dotfiles --exclude dotfiles
     ```
 
     #### Install a specific dotfiles library
 
     ```sh
-    ./install --lib dotfiles -R dotfiles --dotfiles-lib ps1,nvim,base16
+    ./install --lib dotfiles --exclude dotfiles --dotfiles-lib ps1,nvim,base16
     ```
 
 ### Manual Install

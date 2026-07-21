@@ -3,7 +3,7 @@
         C/C++ language server for Neovim.
 --]]
 
-local M = require('lsp.class').LspServer:new('clangd')
+local M = require('lsp.class').LspServer:new('Clangd')
 
 -- vim.lsp.config(config) ------------------------
 --------------------------------------------------

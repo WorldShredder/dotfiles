@@ -13,7 +13,7 @@
 
     TreeSitter
         You can use Mason to install `tree-sitter-cli`, however, older systems
-        with Glibc < 2.39 must build TSC from source.
+        with Glibc < 2.39 must build TSC from source via cargo (not binstall).
 
         See plugins/treesitter.lua
 --]]
@@ -45,6 +45,7 @@ return {
             'clangd',
             'cpplint',
             'clang-format',
+            'rust-analyzer',
             'efm',
         }
 

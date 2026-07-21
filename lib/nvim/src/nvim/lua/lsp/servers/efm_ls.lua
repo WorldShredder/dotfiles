@@ -4,7 +4,7 @@
         See lsp/README.md for usage.
 --]]
 
-local M = require('lsp.class').LspServer:new('efm')
+local M = require('lsp.class').LspServer:new('EFM')
 
 M.post_config = {
     -- Format code of current file on save

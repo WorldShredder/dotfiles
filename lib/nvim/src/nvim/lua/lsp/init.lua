@@ -43,7 +43,7 @@ for _, path in ipairs(fs.list_dir(lib, '%.lua$', formatter)) do
         if not server.disabled then
             if type(server.config) == 'function' then
                 server.config = server.config(capabilities)
-            else
+            elseif not server.config.capabilities then
                 server.config =
                     ---@diagnostic disable-next-line
                     vim.tbl_extend('force', server.config, capabilities)

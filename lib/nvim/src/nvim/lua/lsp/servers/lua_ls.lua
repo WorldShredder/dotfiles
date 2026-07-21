@@ -13,7 +13,7 @@
             - (Optional) Delete lsp/tools/linters/luacheck.lua
 --]]
 
-local M = require('lsp.class').LspServer:new('lua_ls')
+local M = require('lsp.class').LspServer:new('LuaLS')
 
 M.config = function(capabilities)
     local config = {

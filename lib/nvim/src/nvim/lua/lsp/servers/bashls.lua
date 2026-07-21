@@ -12,7 +12,7 @@
             - (Optional) Delete lsp/tools/linters/shellcheck.lua
 --]]
 
-local M = require('lsp.class').LspServer:new('bashls')
+local M = require('lsp.class').LspServer:new('BashLS')
 
 -- vim.lsp.config(config) ------------------------
 --------------------------------------------------

@@ -17,7 +17,7 @@ pwd="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # Depend Check
 #
 
-declare -a required=('nvim' 'cargo' 'npm' 'rg' 'lua' 'luarocks')
+declare -a required=('nvim' 'cargo' 'npm' 'rg' 'lua' 'luarocks' 'wget')
 declare -a missing=()
 
 for cmd in "${required[@]}"; do
